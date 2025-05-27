@@ -1,0 +1,40 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/package-solution.schema.json",
+  "solution": {
+    "name": "boton-popup-client-side-solution",
+    "id": "1ba3c9bf-c3fe-4a07-b977-4ca11bf7ee78",
+    "version": "1.0.0.0",
+    "includeClientSideAssets": true,
+    "skipFeatureDeployment": true,
+    "isDomainIsolated": false,
+    "developer": {
+      "name": "",
+      "websiteUrl": "",
+      "privacyUrl": "",
+      "termsOfUseUrl": "",
+      "mpnId": "Undefined-1.18.2"
+    },
+    "metadata": {
+      "shortDescription": {
+        "default": "boton-popup description"
+      },
+      "longDescription": {
+        "default": "boton-popup description"
+      },
+      "screenshotPaths": [],
+      "videoUrl": "",
+      "categories": []
+    },
+    "features": [
+      {
+        "title": "boton-popup Feature",
+        "description": "The feature that activates elements of the boton-popup solution.",
+        "id": "07c94d71-1693-4c9a-879c-1149fe6c5301",
+        "version": "1.0.0.0"
+      }
+    ]
+  },
+  "paths": {
+    "zippedPackage": "solution/boton-popup.sppkg"
+  }
+}
