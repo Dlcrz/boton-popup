@@ -1,10 +1,7 @@
 import * as React from 'react';
 import * as ReactDom from 'react-dom';
 import { Version } from '@microsoft/sp-core-library';
-import {
-  IPropertyPaneConfiguration,
-  PropertyPaneTextField
-} from '@microsoft/sp-property-pane';
+import { IPropertyPaneConfiguration } from '@microsoft/sp-property-pane';
 import { BaseClientSideWebPart } from '@microsoft/sp-webpart-base';
 import { IReadonlyTheme } from '@microsoft/sp-component-base';
 
@@ -13,18 +10,21 @@ import BotonPopup from './components/BotonPopup';
 import { IBotonPopupProps } from './components/IBotonPopupProps';
 
 export interface IBotonPopupWebPartProps {
-  listName: string;
 }
 
 export default class BotonPopupWebPart extends BaseClientSideWebPart<IBotonPopupWebPartProps> {
   private _isDarkTheme: boolean = false;
   private _environmentMessage: string = '';
 
+  protected async onInit(): Promise<void> {
+    await this._getEnvironmentMessage();
+    return super.onInit();
+  }
+
   public render(): void {
     const element: React.ReactElement<IBotonPopupProps> = React.createElement(
       BotonPopup,
       {
-        listName: this.properties.listName || "boton popup",
         context: this.context,
         isDarkTheme: this._isDarkTheme,
         environmentMessage: this._environmentMessage,
@@ -36,28 +36,21 @@ export default class BotonPopupWebPart extends BaseClientSideWebPart<IBotonPopup
     ReactDom.render(element, this.domElement);
   }
 
-  protected onInit(): Promise<void> {
-    return this._getEnvironmentMessage().then(message => {
-      this._environmentMessage = message;
-    });
-  }
-
-  private _getEnvironmentMessage(): Promise<string> {
-    return new Promise<string>((resolve) => {
-      resolve('');
-    });
+  private async _getEnvironmentMessage(): Promise<void> {
+    if (!!this.context.sdks.microsoftTeams) {
+      const dataProvider = await this.context.sdks.microsoftTeams.teamsJs.app.getContext();
+      const environmentMessage = dataProvider.app.host.name;
+      this._environmentMessage = environmentMessage === 'Office' ? this.context.isServedFromLocalhost ? strings.AppLocalEnvironmentOffice : strings.AppOfficeEnvironment : environmentMessage === 'Outlook' ? this.context.isServedFromLocalhost ? strings.AppLocalEnvironmentOutlook : strings.AppOutlookEnvironment : this.context.isServedFromLocalhost ? strings.AppLocalEnvironmentTeams : strings.AppTeamsTabEnvironment;
+    } else {
+      this._environmentMessage = this.context.isServedFromLocalhost ? strings.AppLocalEnvironmentSharePoint : strings.AppSharePointEnvironment;
+    }
   }
 
   protected onThemeChanged(currentTheme: IReadonlyTheme | undefined): void {
     if (!currentTheme) {
       return;
     }
-
     this._isDarkTheme = !!currentTheme.isInverted;
-  }
-
-  protected onDispose(): void {
-    ReactDom.unmountComponentAtNode(this.domElement);
   }
 
   protected get dataVersion(): Version {
@@ -74,12 +67,7 @@ export default class BotonPopupWebPart extends BaseClientSideWebPart<IBotonPopup
           groups: [
             {
               groupName: strings.BasicGroupName,
-              groupFields: [
-                PropertyPaneTextField('listName', {
-                  label: 'Nombre de la lista',
-                  value: this.properties.listName || "boton popup"
-                })
-              ]
+              groupFields: []
             }
           ]
         }
