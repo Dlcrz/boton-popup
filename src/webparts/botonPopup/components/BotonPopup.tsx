@@ -2,7 +2,8 @@ import * as React from 'react';
 import { useState, useEffect, useCallback } from 'react';
 import { IBotonPopupProps, IListItem } from './IBotonPopupProps';
 import { Dialog, DialogType, DialogFooter } from '@fluentui/react/lib/Dialog';
-import { DefaultButton } from '@fluentui/react/lib/Button';
+//import { DefaultButton } from '@fluentui/react/lib/Button';
+import { PrimaryButton } from '@fluentui/react/lib/Button';
 import { Image, ImageFit } from '@fluentui/react/lib/Image';
 import styles from './BotonPopup.module.scss';
 import { SPHttpClient, SPHttpClientResponse } from '@microsoft/sp-http';
@@ -120,7 +121,7 @@ export default function BotonPopup(props: IBotonPopupProps): React.ReactElement<
       <div className={styles.buttonGrid}>
         {listItems.map((item, index) => (
           <div key={index} className={styles.buttonContainer}>
-            <DefaultButton
+            <PrimaryButton
               onClick={() => toggleDialog(item.Title)}
               className={styles.mainButton}
             >
@@ -134,7 +135,7 @@ export default function BotonPopup(props: IBotonPopupProps): React.ReactElement<
                 />
               )}
               {item.Boton1}
-            </DefaultButton>
+            </PrimaryButton>
 
             <Dialog
               hidden={!openDialogs[item.Title]}
@@ -158,50 +159,48 @@ export default function BotonPopup(props: IBotonPopupProps): React.ReactElement<
                     imageFit={ImageFit.contain}
                   />
                 )}
-                
+
                 <DialogFooter className={styles.dialogFooter}>
                   {item.Imagen2 && (
-                    <DefaultButton
+                    <PrimaryButton
                       href={item.Link2}
                       onClick={(e) => {
                         e.preventDefault();
                         window.open(item.Link2, '_blank', 'noopener,noreferrer');
                       }}
-                      className={`${styles.footerButton} ${styles.customButton}`}
+                      className={styles.footerButton}
+                      style={{ borderRadius: 4 }} // ✅ Esto forzará el borde redondeado
                     >
-                      <div className={styles.buttonContent}>
-                        <Image
-                          src={item.Imagen2}
-                          width={24}
-                          height={24}
-                          imageFit={ImageFit.contain}
-                          className={styles.buttonIcon}
-                        />
-                        <span className={styles.buttonText}>{item.Boton2}</span>
-                      </div>
-                    </DefaultButton>
+                      <Image
+                        src={item.Imagen2}
+                        width={24}
+                        height={24}
+                        imageFit={ImageFit.contain}
+                        className={styles.buttonIcon}
+                      />
+                      <span>{item.Boton2}</span>
+                    </PrimaryButton>
                   )}
 
                   {item.Boton3 && item.Imagen3 && (
-                    <DefaultButton
+                    <PrimaryButton
                       href={item.Link3}
                       onClick={(e) => {
                         e.preventDefault();
                         window.open(item.Link3, '_blank', 'noopener,noreferrer');
                       }}
-                      className={`${styles.footerButton} ${styles.customButton}`}
+                      className={styles.footerButton}
+                      style={{ borderRadius: 4 }} // ✅ También aquí
                     >
-                      <div className={styles.buttonContent}>
-                        <Image
-                          src={item.Imagen3}
-                          width={24}
-                          height={24}
-                          imageFit={ImageFit.contain}
-                          className={styles.buttonIcon}
-                        />
-                        <span className={styles.buttonText}>{item.Boton3}</span>
-                      </div>
-                    </DefaultButton>
+                      <Image
+                        src={item.Imagen3}
+                        width={24}
+                        height={24}
+                        imageFit={ImageFit.contain}
+                        className={styles.buttonIcon}
+                      />
+                      <span>{item.Boton3}</span>
+                    </PrimaryButton>
                   )}
                 </DialogFooter>
               </div>

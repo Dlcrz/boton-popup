@@ -74,4 +74,8 @@ export default class BotonPopupWebPart extends BaseClientSideWebPart<IBotonPopup
       ]
     };
   }
+
+  protected onDispose(): void {
+    ReactDom.unmountComponentAtNode(this.domElement);
+  }
 }
