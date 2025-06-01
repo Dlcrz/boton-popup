@@ -13,9 +13,11 @@
 
   .buttonGrid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     gap: 20px;
-    max-width: 100%;
+    width: 100%;
+    max-width: 900px; // 👉 Limita a 3 columnas máximo
+    margin: 0 auto;
   }
 
   .buttonContainer {
@@ -29,17 +31,17 @@
     color: white !important;
     border-radius: 4px !important;
     border: none !important;
-    padding: 10px 20px !important;
-    min-width: 220px !important;
-    height: 44px !important;
+    padding: 12px 20px !important;
+    width: 100% !important;
+    height: auto !important;
+    min-height: 48px !important;
     display: inline-flex !important;
     align-items: center !important;
     justify-content: center !important;
     gap: 8px !important;
+    box-sizing: border-box !important;
     transition: all 0.3s ease !important;
     text-decoration: none !important;
-
-    /* 🆕 Tipografía igual que el botón principal */
     font-family: "Segoe UI", sans-serif !important;
     font-size: 14px !important;
     font-weight: 600 !important;
@@ -78,11 +80,6 @@
       font-size: 14px !important;
       font-weight: 600 !important;
     }
-  }
-
-
-  .mainButton {
-    margin: 10px;
   }
 
   .buttonIcon {
@@ -199,6 +196,4 @@
       color: var(--linkHovered);
     }
   }
-
-
 }
