@@ -32,7 +32,7 @@ export default function BotonPopup(props: IBotonPopupProps): React.ReactElement<
       const select = '$select=ID,Title,Boton1,Imagen1,Boton2,Boton3,ImagenCentral,Imagen2,Imagen3,Link2,Link3';
       const queryUrl = `${baseUrl}?${select}`;
 
-      console.log('URL de consulta:', queryUrl);
+      //console.log('URL de consulta:', queryUrl);
 
       const response: SPHttpClientResponse = await props.spHttpClient.get(
         queryUrl,
@@ -50,7 +50,7 @@ export default function BotonPopup(props: IBotonPopupProps): React.ReactElement<
       }
 
       const items: { value: ISharePointListItem[] } = await response.json();
-      console.log('Respuesta de SharePoint:', items);
+      //console.log('Respuesta de SharePoint:', items);
 
       const processedItems = items.value.map(item => {
         const processedItem = {
