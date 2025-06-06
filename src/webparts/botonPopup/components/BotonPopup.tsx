@@ -148,15 +148,15 @@ export default function BotonPopup(props: IBotonPopupProps): React.ReactElement<
               }}
               modalProps={{
                 isBlocking: false,
-                styles: { main: { maxWidth: 450 } }
+                className: styles.botonPopup // ✅ Aplica tus estilos personalizados desde aquí
               }}
             >
               <div className={styles.dialogContent}>
                 {item.ImagenCentral && (
-                  <Image
+                  <img
                     src={item.ImagenCentral}
                     className={styles.centralImage}
-                    imageFit={ImageFit.contain}
+
                   />
                 )}
 
