@@ -160,49 +160,51 @@ export default function BotonPopup(props: IBotonPopupProps): React.ReactElement<
                   />
                 )}
 
-                <DialogFooter className={styles.dialogFooter}>
-                  {item.Imagen2 && (
-                    <PrimaryButton
-                      href={item.Link2}
-                      onClick={(e) => {
-                        e.preventDefault();
-                        window.open(item.Link2, '_blank', 'noopener,noreferrer');
-                      }}
-                      className={styles.footerButton}
-                      style={{ borderRadius: 4 }} // ✅ Esto forzará el borde redondeado
-                    >
-                      <Image
-                        src={item.Imagen2}
-                        width={24}
-                        height={24}
-                        imageFit={ImageFit.contain}
-                        className={styles.buttonIcon}
-                      />
-                      <span>{item.Boton2}</span>
-                    </PrimaryButton>
-                  )}
+                {(item.Boton2 && item.Imagen2) || (item.Boton3 && item.Imagen3) ? (
+                  <DialogFooter className={styles.dialogFooter}>
+                    {item.Boton2 && item.Imagen2 && (
+                      <PrimaryButton
+                        href={item.Link2}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          window.open(item.Link2, '_blank', 'noopener,noreferrer');
+                        }}
+                        className={styles.footerButton}
+                        style={{ borderRadius: 4 }}
+                      >
+                        <Image
+                          src={item.Imagen2}
+                          width={24}
+                          height={24}
+                          imageFit={ImageFit.contain}
+                          className={styles.buttonIcon}
+                        />
+                        <span>{item.Boton2}</span>
+                      </PrimaryButton>
+                    )}
 
-                  {item.Boton3 && item.Imagen3 && (
-                    <PrimaryButton
-                      href={item.Link3}
-                      onClick={(e) => {
-                        e.preventDefault();
-                        window.open(item.Link3, '_blank', 'noopener,noreferrer');
-                      }}
-                      className={styles.footerButton}
-                      style={{ borderRadius: 4 }} // ✅ También aquí
-                    >
-                      <Image
-                        src={item.Imagen3}
-                        width={24}
-                        height={24}
-                        imageFit={ImageFit.contain}
-                        className={styles.buttonIcon}
-                      />
-                      <span>{item.Boton3}</span>
-                    </PrimaryButton>
-                  )}
-                </DialogFooter>
+                    {item.Boton3 && item.Imagen3 && (
+                      <PrimaryButton
+                        href={item.Link3}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          window.open(item.Link3, '_blank', 'noopener,noreferrer');
+                        }}
+                        className={styles.footerButton}
+                        style={{ borderRadius: 4 }}
+                      >
+                        <Image
+                          src={item.Imagen3}
+                          width={24}
+                          height={24}
+                          imageFit={ImageFit.contain}
+                          className={styles.buttonIcon}
+                        />
+                        <span>{item.Boton3}</span>
+                      </PrimaryButton>
+                    )}
+                  </DialogFooter>
+                ) : null}
               </div>
             </Dialog>
           </div>
